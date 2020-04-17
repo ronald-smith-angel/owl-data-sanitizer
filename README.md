@@ -1,4 +1,4 @@
-# Data Validation Framework
+# Owl Data Sanitizer: A light Spark data validation framework
 
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/ronald-smith-angel/owl-data-sanitizer/blob/develop/license.md)
 
