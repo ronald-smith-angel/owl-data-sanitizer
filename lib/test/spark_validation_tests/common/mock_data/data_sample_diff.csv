@@ -1,0 +1,7 @@
+CODE,GENERAL_ID,NAME,CODE2,ULTIMATE_PARENT_ID,ULTIMATE_NAME,PARENT_ID,PARENT_NAME,ADDR_DESC
+12000123,1,Dummy 1 Entity,A,null,null,null,Dummy 1 Entity,
+null,2,,B,2,Dummy 1 Entity,2,Dummy 1 Entity,
+12000123,3,null,A,3,null,3,Dummy 1 Entity,
+1,4,1,B,4,Dummy 1 Entity,4,Dummy 1 Entity,
+12000123,5,1,A,5,null,5,Dummy 1 Entity,
+12000123,null,,A,11,null,7,Dummy 1 Entity,

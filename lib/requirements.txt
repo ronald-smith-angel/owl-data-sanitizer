@@ -1,0 +1,8 @@
+# Development
+black==19.10b0
+flake8==3.7.9
+pytest==5.3.2
+coverage==5.0.3
+pyspark==2.4.5
+dataclasses==0.6 # this comes out of the box in python 3.7, we can remove this when we upgrade.
+

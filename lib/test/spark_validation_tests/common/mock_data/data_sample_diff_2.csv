@@ -1,0 +1,3 @@
+CODE,GENERAL_ID,NAME,CODE2,ULTIMATE_PARENT_ID,ULTIMATE_NAME,PARENT_ID,PARENT_NAME
+12000123,1,Dummy 1 Entity,A,null,null,null,Dummy 1 Entity
+null,2,,B,2,Dummy 1 Entity,2,Dummy 1 Entity
