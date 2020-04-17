@@ -1,3 +1,4 @@
+langage: python
 deploy:
  provider: pypi
  user: ronaldsmithangel
