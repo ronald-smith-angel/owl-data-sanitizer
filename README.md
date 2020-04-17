@@ -1,5 +1,7 @@
 # Data Validation Framework
 
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/ronald-smith-angel/owl-data-sanitizer/blob/develop/license.md)
+
 This is a small framework for data quality validation. This first version works reading spark dataframes from local 
 datasources like local system, s3 or hive and delivers hive tables with quality reports.
 
