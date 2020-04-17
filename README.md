@@ -122,3 +122,21 @@ join with the source data to see differences is needed.
 |test.diff_df  |                                  |                 |6,7               |                 |2020-04-17 09:39:07.572483|
 +--------------+----------------------------------+-----------------+------------------+-----------------+--------------------------+
 ```
+
+#Installation
+
+Install owl sanitizer from PyPI:
+
+```pip install owl-sanitizer-data-quality```
+
+Then you can call the library.
+
+```
+from spark_validation.dataframe_validation.dataframe_validator import CreateHiveValidationDF
+from spark_validation.common.config import Config
+
+spark_session = SparkSession.builder.enableHiveSupport().getOrCreate()
+with open(PATH_TO_CONIGIG_FILE) as f:
+        config = Config.parse(f)
+CreateHiveValidationDF.validate(spark_session, config)
+```
