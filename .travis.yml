@@ -22,4 +22,3 @@ deploy:
   skip_cleanup: true
   on:
    branch: develop
-   python: 3.8
