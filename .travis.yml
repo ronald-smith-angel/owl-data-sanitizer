@@ -1,4 +1,10 @@
 language: python
+services:
+  - docker
+before_script:
+    - export VERSION=$(awk '{print $3}' lib/src/spark_validation/version.py | sed 's/"//g')
+before_install:
+  - docker pull covertspartan/docker-airflow-spark
 install:
   - pip install -r requirements.txt
 # command to run tests
