@@ -1,22 +1,20 @@
 language: python
 services:
-  - docker
+- docker
 before_script:
-    - export VERSION=$(awk '{print $3}' lib/src/spark_validation/version.py | sed 's/"//g')
+- export VERSION=$(awk '{print $3}' lib/src/spark_validation/version.py | sed 's/"//g')
 before_install:
-  - docker pull covertspartan/docker-airflow-spark
+- docker pull covertspartan/docker-airflow-spark
 install:
-  - pip install -r requirements.txt
-# command to run tests
+- pip install -r requirements.txt
 script:
-  - cd lib
-  - pip install -r requirements.txt --quiet
-  - export PYTHONPATH="$PWD/src:$PWD/test:$PYTHONPATH"
-
+- cd lib
+- pip install -r requirements.txt --quiet
+- export PYTHONPATH="$PWD/src:$PWD/test:$PYTHONPATH"
 deploy:
   provider: pypi
   user: ronaldsmithangel
   password:
-    secure: u5VXYKNeGYE2UwUghRPigRs9RjHBaFCZ3uJSJeGG1fhid1i8pqu9YZhGCqRHATTMQWFXGF9+UBrgwAISRrEIBFFqTSVjDf1xyTIJ1jQlYueYayNB3h+/nPlP46XQ313Pd9JkVi8JKc+iQ6tUmoTPTSoDLGLq4wW5JTC3Mo7Ohv8ggww7+Ksvun4VrQZY8EHBSktLGj3cZNc5WVLEcO3XKLBRjd8dUSiJaB3sxjyLguDTBeozpAoy40AaqNjmM2yYAk+tfIRQjftn02xnblszOw8fvU+WhDGClm+YR0JFAzbip+e0NJDSBNB05se1WuI861T2uzEXF3kOau2xzmV7CdASshu1aqsXhM4drKE9s9zfeHTHjbbQnDfQmRKm34r2ZoP4b4YUc+qsBu7TKipdBJdDP3dfo7obzHnmlGmg+oM/21gXR8HK0pbC2cRYAaRvvzDS+U4FnUZwQRs7Jw3t0QrP18FbmuYaFa32bL84HC/QgzDQg7x1K/oDp2ehYsby8jNCJhfEn2BNmaUF3bHai2AzZa94X1aBRFPXLO8wg1HZH1hvdcxyKfHovGLps0TKxs75hMJaqOa+Lb2GE15UjXysUuSEaF/B3F1DQ0Qlmb2n6TTp3bxPvtCv9qLqrahhbW6zySui2DK4btudDEBM/etB1aR0w3t0QS/eQNEM9BY=
+    secure: LZnBL8dhXzc+ygWpPHWDboPKWJ/jW58fg5N8US7np9tRhZ9YQzwFtDjaHetVxmIBCM+h57DmA5kJNBaIx7saNu48wARBxsZTP7T3pnM8L5uMpJhwaqIYQdIbnh00FbzyintuQJ7LqkSNFhUMkkoAoW+1NXAr9lk0HdGbMeTxJmr9ZSh4131rQIfqury8pT8z27/kslSD61x3Gua+yqbhYns1ZwMwuR84t2uRC7ihScM2Bi/gmQusjTm5HXwChn1U+fh1GQPb63bREfPwfTlvAN5GYt8ZuV/A3lz4iTwm0eRMDpnE1cO4kJ92U0xxtjeixgE0Jz73KebAAYQp+4I1zv7ng3gPlyDSPRn98eLYy8e/zp1q15kO179dvb87l+7WzQ8gjfI1FXsNneAlv+Aza/EDOHmssrlFAhXQpG3rDLgIEBEQbAKQCYrFJt/1tQdFHGWtTl+pvW8l+nMca5pRttZsDkPHhfRft6H+P1YWcEL6ksngiFh979EjLnuVISZGjLJmAjF7M3pxDZT9qbBF8NHPxmMjUaKeyTg2kONyGLH2mtFOanRxdYJOurZeIOAZA1GPq8iqL0M/a1Eivr5MTLYHCU/WEvEBDOThVu88N/9Y24sTtnIdMckzBFSZ+SBqgmZOw1TlmY+MugrX0z009tW3zgEAsiNUR+eK5AfGrEc=
   on:
-   branch: develop
+    branch: develop
