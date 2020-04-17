@@ -6,7 +6,6 @@ from setuptools import setup, find_packages
 
 SETUP_REQUIREMENTS = [
     "dataclasses==0.6",
-    "apache-airflow==1.10.3",
     "pyspark==2.4.5",
 ]
 
