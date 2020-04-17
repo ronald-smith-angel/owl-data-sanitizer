@@ -123,7 +123,7 @@ join with the source data to see differences is needed.
 +--------------+----------------------------------+-----------------+------------------+-----------------+--------------------------+
 ```
 
-#Installation
+## Installation
 
 Install owl sanitizer from PyPI:
 
