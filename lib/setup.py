@@ -9,6 +9,11 @@ SETUP_REQUIREMENTS = [
     "pyspark==2.4.5",
 ]
 
+from os import path
+readme_directory = path.abspath(path.dirname(__file__))
+with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
+
 
 def _get_version():
     """Read the __version__ value from src/domino_ingestion/version.py.
@@ -31,7 +36,7 @@ def _get_version():
 setup(
     name="owl-sanitizer-data-quality",
     version=_get_version(),
-    description="Data Quality for Pyspark jobs",
+    description="Data Quality framework for Pyspark jobs",
     author="Ronald Angel",
     author_email="ronaldsmithangel@gmail.com",
     url="https://github.com/ronald-smith-angel/owl-data-sanitizer.git",
