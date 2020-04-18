@@ -12,6 +12,7 @@ script:
 - pip install -r requirements.txt --quiet
 - export PYTHONPATH="$PWD/src:$PWD/test:$PYTHONPATH"
 deploy:
+  skip_cleanup: true
   provider: pypi
   user: ronaldsmithangel
   password:
