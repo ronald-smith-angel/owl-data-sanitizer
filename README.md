@@ -140,3 +140,10 @@ with open(PATH_TO_CONIGIG_FILE) as f:
         config = Config.parse(f)
 CreateHiveValidationDF.validate(spark_session, config)
 ```
+
+To use in your spark submit command or airflow dag.
+
+- Add `py_files` : `[https://pypi.org/project/owl-sanitizer-data-quality/latest/]` .
+- `application` : `owl-sanitizer-data-quality/latest/src/src/spark_validation/dataframe_validation/hive_validator.py`
+- `application_package`: `https://pypi.org/project/owl-sanitizer-data-quality/latest/owl-sanitizer-data-quality-latest.tar.gz`
+- `application_params`: `URL_TO_YOUR_REMOTE_CONFIG_FILE`
