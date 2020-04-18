@@ -10,8 +10,9 @@ SETUP_REQUIREMENTS = [
 ]
 
 from os import path
-readme_directory = path.abspath(path.dirname(__file__))
-with open(path.join(this_directory, 'README.md'), encoding='utf-8') as f:
+
+readme_directory = path.abspath(path.dirname(__file__)).replace('/lib', '')
+with open(path.join(readme_directory, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 
@@ -37,6 +38,8 @@ setup(
     name="owl-sanitizer-data-quality",
     version=_get_version(),
     description="Data Quality framework for Pyspark jobs",
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     author="Ronald Angel",
     author_email="ronaldsmithangel@gmail.com",
     url="https://github.com/ronald-smith-angel/owl-data-sanitizer.git",
