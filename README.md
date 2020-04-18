@@ -147,3 +147,8 @@ To use in your spark submit command or airflow dag.
 - `application` : `owl-sanitizer-data-quality/latest/src/spark_validation/dataframe_validation/hive_validator.py`
 - `application_package`: `https://pypi.org/project/owl-sanitizer-data-quality/latest/owl-sanitizer-data-quality-latest.tar.gz`
 - `application_params`: `URL_TO_YOUR_REMOTE_CONFIG_FILE`
+
+Contact
+-------
+
+Please ask questions about technical issues here on GitHub. 
