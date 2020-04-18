@@ -137,7 +137,7 @@ from spark_validation.dataframe_validation.dataframe_validator import CreateHive
 from spark_validation.common.config import Config
 
 spark_session = SparkSession.builder.enableHiveSupport().getOrCreate()
-with open(PATH_TO_CONIGIG_FILE) as f:
+with open(PATH_TO_CONFIG_FILE) as f:
         config = Config.parse(f)
 CreateHiveValidationDF.validate(spark_session, config)
 ```
