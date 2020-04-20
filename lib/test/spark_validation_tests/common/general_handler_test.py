@@ -224,8 +224,6 @@ class GeneralHandlerTest(PySparkTest):
             )
         ).collect()
 
-        shutil.rmtree(PACKAGE_DIR + '/mock_data/output')
-
 
 if __name__ == "__main__":
     unittest.main()
