@@ -2,6 +2,7 @@
 metastore_db
 spark-warehouse
 env_dags
+venv/
 
 # IDE
 .idea/
