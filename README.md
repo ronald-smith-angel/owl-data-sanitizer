@@ -41,7 +41,7 @@ the same table in other environments.
     "name": "test.data_test",
     "id_column": "GENERAL_ID",
     "unique_per_cols": [GENERAL_ID, ULTIMATE_PARENT_ID],
-    "fuzzy_desuplication_distance": 1,
+    "fuzzy_deduplication_distance": 1,
     "output_correctness_table": "test.data_test_correctness",
     "output_completeness_table": "test.data_test_completeness",
     "output_comparison_table": "test.data_test_comparison"
