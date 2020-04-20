@@ -1,6 +1,5 @@
 """Module with general function tests for the GeneralDFHandler."""
 import os
-import shutil
 import sys
 import unittest
 
@@ -53,10 +52,10 @@ class GeneralHandlerTest(PySparkTest):
     def _create_source_df(cls, csv_file):
         return (
             cls.spark.read.option("delimiter", ",")
-                .option("header", True)
-                .option("inferSchema", True)
-                .option("mode", "PERMISSIVE")
-                .csv(csv_file)
+            .option("header", True)
+            .option("inferSchema", True)
+            .option("mode", "PERMISSIVE")
+            .csv(csv_file)
         )
 
     def test_grid_validator_process(self):
@@ -141,9 +140,9 @@ class GeneralHandlerTest(PySparkTest):
         # Correctness validations.
         _is_error_name = Constants.IS_ERROR_COL + "NAME" + Constants.SUM_REPORT_SUFFIX
         _sum_errors_col = (
-                Constants.IS_ERROR_COL
-                + Constants.ROW_ERROR_SUFFIX
-                + Constants.SUM_REPORT_SUFFIX
+            Constants.IS_ERROR_COL
+            + Constants.ROW_ERROR_SUFFIX
+            + Constants.SUM_REPORT_SUFFIX
         )
         self.assertEqual(correctness_table.count(), 8)
 
@@ -169,8 +168,8 @@ class GeneralHandlerTest(PySparkTest):
             comparison_table.filter(
                 F.col(Constants.REPORT_DF_COL) == config.comparable_dfs_list[0]
             )
-                .select(Constants.MISSING_VALS_RIGHT_COL)
-                .first()[Constants.MISSING_VALS_RIGHT_COL],
+            .select(Constants.MISSING_VALS_RIGHT_COL)
+            .first()[Constants.MISSING_VALS_RIGHT_COL],
             "6,7",
         )
 
@@ -178,30 +177,46 @@ class GeneralHandlerTest(PySparkTest):
             comparison_table.filter(
                 F.col(Constants.REPORT_DF_COL) == config.comparable_dfs_list[1]
             )
-                .select(Constants.MISSING_COLS_LEFT_COL)
-                .first()[Constants.MISSING_COLS_LEFT_COL],
+            .select(Constants.MISSING_COLS_LEFT_COL)
+            .first()[Constants.MISSING_COLS_LEFT_COL],
             "GENERAL_ID:int",
         )
 
     def test_integration_fs_validator(self):
         """Integration test for rule set defined in mock config file."""
-        with open(PACKAGE_DIR + "/mock_data/config_example_fs.json") as f:
+        with open(PACKAGE_DIR + "/mock_data/config_example_local.json") as f:
             config = Config.parse(f)
 
         config.source_df = PACKAGE_DIR + config.source_df
         config.output_correctness_table = PACKAGE_DIR + config.output_completeness_table
-        config.output_completeness_table = PACKAGE_DIR + config.output_completeness_table
+        config.output_completeness_table = (
+            PACKAGE_DIR + config.output_completeness_table
+        )
         config.output_comparison_table = PACKAGE_DIR + config.output_comparison_table
-        config.comparable_dfs_list = list(map(lambda x: PACKAGE_DIR + x, config.comparable_dfs_list))
+        config.comparable_dfs_list = list(
+            map(lambda x: PACKAGE_DIR + x, config.comparable_dfs_list)
+        )
 
-        self.spark.sparkContext.addFile(PACKAGE_DIR + "/mock_data/config_example_fs.json")
-        sys.argv = ["example.py", "-c", PACKAGE_DIR + "/mock_data/config_example_fs.json"]
+        self.spark.sparkContext.addFile(
+            PACKAGE_DIR + "/mock_data/config_example_local.json"
+        )
+        sys.argv = [
+            "example.py",
+            "-c",
+            PACKAGE_DIR + "/mock_data/config_example_local.json",
+        ]
 
         file_system_validator.init()
 
-        correctness_table = self.spark.read.json(PACKAGE_DIR + "/mock_data/output/data_sample_test_correctness")
-        completeness_table = self.spark.read.json(PACKAGE_DIR + "/mock_data/output/data_sample_test_completeness")
-        comparison_table = self.spark.read.json(PACKAGE_DIR + "/mock_data/output/data_sample_test_comparison")
+        correctness_table = self.spark.read.json(
+            PACKAGE_DIR + "/mock_data/output/data_sample_test_correctness"
+        )
+        completeness_table = self.spark.read.json(
+            PACKAGE_DIR + "/mock_data/output/data_sample_test_completeness"
+        )
+        comparison_table = self.spark.read.json(
+            PACKAGE_DIR + "/mock_data/output/data_sample_test_comparison"
+        )
 
         self.assertEqual(correctness_table.count(), 8)
         self.assertEqual(completeness_table.count(), 1)

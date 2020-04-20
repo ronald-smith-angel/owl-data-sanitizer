@@ -19,9 +19,13 @@ class CreateFSValidationDF:
     @staticmethod
     def validate(ss, config):
         """Apply validation process using config input file."""
-        source_read_df = ss.read.format("csv").option("header", "true").load(config.source_df)
-        comparable_dfs_list = [(t, ss.read.format("csv").option("header", "true").load(t)) for t in
-                               config.comparable_dfs_list]
+        source_read_df = (
+            ss.read.format("csv").option("header", "true").load(config.source_df)
+        )
+        comparable_dfs_list = [
+            (t, ss.read.format("csv").option("header", "true").load(t))
+            for t in config.comparable_dfs_list
+        ]
 
         validator = DataframeValidator(
             spark=ss,
@@ -46,9 +50,15 @@ class CreateFSValidationDF:
         )
         comparison_df = validator.compare()
 
-        correctness_df.coalesce(1).write.mode("overwrite").json(config.output_correctness_table)
-        completeness_df.coalesce(1).write.mode("overwrite").json(config.output_completeness_table)
-        comparison_df.coalesce(1).write.mode("overwrite").json(config.output_comparison_table)
+        correctness_df.coalesce(1).write.mode("overwrite").json(
+            config.output_correctness_table
+        )
+        completeness_df.coalesce(1).write.mode("overwrite").json(
+            config.output_completeness_table
+        )
+        comparison_df.coalesce(1).write.mode("overwrite").json(
+            config.output_comparison_table
+        )
 
 
 def main(args):

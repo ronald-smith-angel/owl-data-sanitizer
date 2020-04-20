@@ -1,0 +1,40 @@
+{
+  "source_table": {
+    "name": "mock_data/data_sample.csv",
+    "id_column": "GENERAL_ID",
+    "output_correctness_table": "mock_data/output/data_sample_test_correctness",
+    "output_completeness_table": "mock_data/output/data_sample_test_completeness",
+    "output_comparison_table": "mock_data/output/data_sample_test_comparison"
+  },
+  "correctness_validations": [
+    {
+      "column": "CODE",
+      "rule": "CODE is not null and CODE != '' and CODE != 'null'"
+    },
+    {
+      "column": "NAME",
+      "rule": "NAME is not null and NAME != '' and NAME != 'null'"
+    },
+    {
+      "column": "GENERAL_ID",
+      "rule": "GENERAL_ID is not null and GENERAL_ID != '' and GENERAL_ID != 'null' and CHAR_LENGTH(GENERAL_ID) < 4"
+    }
+  ],
+  "completeness_validations": [
+    {
+      "column": "OVER_ALL_COUNT",
+      "rule": "OVER_ALL_COUNT <= 7"
+    }
+  ],
+  "parent_children_constraints": [
+    {
+      "column": "GENERAL_ID",
+      "parent": "ULTIMATE_PARENT_ID"
+    },
+    {
+      "column": "GENERAL_ID",
+      "parent": "PARENT_ID"
+    }
+  ],
+  "compare_related_tables_list": ["mock_data/data_sample_diff.csv"]
+}
