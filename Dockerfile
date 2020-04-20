@@ -8,7 +8,7 @@ COPY lib/ .
 
 COPY . /app
 
-RUN pip install -r /app/requirements.txt
+RUN pip install -r /app/requirements.txt && pip install gunicorn
 
-RUN python /app/lib/src/spark_validation/dataframe_validation/file_system_validator.py -c /app/lib/test/spark_validation_tests/common/mock_data/config_example_fs.json
-#CMD ["sleep" , "50000"]
+EXPOSE 8000
+CMD ["gunicorn", "-b",  "0.0.0.0:8000", "spark_validation.app"]
