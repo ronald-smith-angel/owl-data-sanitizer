@@ -1,10 +1,10 @@
 {
   "source_table": {
-    "name": "mock_data/data_sample.csv",
+    "name": "lib/test/spark_validation_tests/common/mock_data/data_sample.csv",
     "id_column": "GENERAL_ID",
-    "output_correctness_table": "mock_data/output/data_sample_test_correctness",
-    "output_completeness_table": "mock_data/output/data_sample_test_completeness",
-    "output_comparison_table": "mock_data/output/data_sample_test_comparison"
+    "output_correctness_table": "lib/test/spark_validation_tests/common/mock_data/output/data_sample_test_correctness",
+    "output_completeness_table": "lib/test/spark_validation_tests/common/mock_data/output/data_sample_test_completeness",
+    "output_comparison_table": "lib/test/spark_validation_tests/common/mock_data/output/data_sample_test_comparison"
   },
   "correctness_validations": [
     {
@@ -36,5 +36,5 @@
       "parent": "PARENT_ID"
     }
   ],
-  "compare_related_tables_list": ["mock_data/data_sample_diff.csv"]
+  "compare_related_tables_list": ["lib/test/spark_validation_tests/common/mock_data/data_sample_diff.csv"]
 }
