@@ -40,8 +40,8 @@ the same table in other environments.
   "source_table": {
     "name": "test.data_test",
     "id_column": "GENERAL_ID",
-    "unique_per_cols": [GENERAL_ID, ULTIMATE_PARENT_ID],
-    "fuzzy_deduplication_distance": 1,
+    "unique_column_group_values_per_table": ["GENERAL_ID", "ULTIMATE_PARENT_ID"],
+    "fuzzy_deduplication_distance": 0,
     "output_correctness_table": "test.data_test_correctness",
     "output_completeness_table": "test.data_test_completeness",
     "output_comparison_table": "test.data_test_comparison"
