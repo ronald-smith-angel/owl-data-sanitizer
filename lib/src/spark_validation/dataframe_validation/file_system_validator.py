@@ -2,6 +2,7 @@ import argparse
 import logging
 import os
 
+from pivottablejs import pivot_ui
 from pyspark.sql import SparkSession
 
 from spark_validation.common.config import Config
@@ -50,14 +51,68 @@ class CreateFSValidationDF:
         )
         comparison_df = validator.compare()
 
-        correctness_df.coalesce(1).write.mode("overwrite").json(
+        correctness_df.coalesce(1).write.mode("append").json(
             config.output_correctness_table
         )
-        completeness_df.coalesce(1).write.mode("overwrite").json(
+        completeness_df.coalesce(1).write.mode("append").json(
             config.output_completeness_table
         )
-        comparison_df.coalesce(1).write.mode("overwrite").json(
+        comparison_df.coalesce(1).write.mode("append").json(
             config.output_comparison_table
+        )
+
+        pd_correctness_df = ss.read.json(config.output_correctness_table).toPandas()
+        pd_completeness_df = ss.read.json(config.output_completeness_table).toPandas()
+        comparison_df = ss.read.json(config.output_comparison_table).toPandas()
+
+        pivot_ui(
+            pd_correctness_df,
+            outfile_path="{}.html".format(config.output_correctness_table),
+            menuLimit=5000,
+            overwrite=True,
+            rows=[config.id_col_name]
+            + list(
+                filter(
+                    lambda x: Constants.IS_ERROR_COL in x
+                    and Constants.SUM_REPORT_SUFFIX not in x
+                    and Constants.ROW_ERROR_SUFFIX not in x,
+                    pd_correctness_df.columns,
+                )
+            ),
+            cols=[Constants.DATE_TIME_REPORT_COL],
+            vals=[Constants.IS_ERROR_COL + Constants.ROW_ERROR_SUFFIX],
+            aggregatorName="Sum",
+            rendererName="Table Barchart",
+            rowOrder="value_z_to_a",
+        )
+
+        pivot_ui(
+            pd_completeness_df,
+            outfile_path="{}.html".format(config.output_completeness_table),
+            menuLimit=5000,
+            overwrite=True,
+            rows=[Constants.OVER_ALL_COUNT_COL],
+            cols=[Constants.DATE_TIME_REPORT_COL],
+            vals=[Constants.IS_ERROR_COL + Constants.OVER_ALL_COUNT_COL],
+            aggregatorName="Sum",
+            rendererName="Table Barchart",
+            rowOrder="value_z_to_a",
+        )
+
+        pivot_ui(
+            comparison_df,
+            outfile_path="{}.html".format(config.output_comparison_table),
+            menuLimit=5000,
+            overwrite=True,
+            rows=list(
+                filter(
+                    lambda x: Constants.DATE_TIME_REPORT_COL not in x,
+                    comparison_df.columns,
+                )
+            ),
+            cols=[Constants.DATE_TIME_REPORT_COL],
+            rendererName="Table Barchart",
+            rowOrder="value_z_to_a",
         )
 
 

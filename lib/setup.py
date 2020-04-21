@@ -9,7 +9,11 @@ SETUP_REQUIREMENTS = [
     "pyspark==2.4.5",
     "Flask==1.1.2",
     "requests==2.23.0",
-    "dataclasses==0.6"
+    "dataclasses==0.6",
+    "numpy==1.18.3",
+    "pandas==1.0.1",
+    "pivottablejs==0.9.0",
+    "ipython==7.13.0",
 ]
 
 from os import path

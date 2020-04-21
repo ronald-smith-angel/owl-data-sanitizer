@@ -2,9 +2,9 @@
   "source_table": {
     "name": "mock_data/data_sample.csv",
     "id_column": "GENERAL_ID",
-    "output_correctness_table": "mock_data/output/data_sample_test_correctness",
-    "output_completeness_table": "mock_data/output/data_sample_test_completeness",
-    "output_comparison_table": "mock_data/output/data_sample_test_comparison"
+    "output_correctness_table": "/tmp/mock_data/output/data_sample_test_correctness",
+    "output_completeness_table": "/tmp/mock_data/output/data_sample_test_completeness",
+    "output_comparison_table": "/tmp/mock_data/output/data_sample_test_comparison"
   },
   "correctness_validations": [
     {

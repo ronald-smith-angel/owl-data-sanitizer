@@ -209,18 +209,18 @@ class GeneralHandlerTest(PySparkTest):
         file_system_validator.init()
 
         correctness_table = self.spark.read.json(
-            PACKAGE_DIR + "/mock_data/output/data_sample_test_correctness"
+            "/tmp/mock_data/output/data_sample_test_correctness"
         )
         completeness_table = self.spark.read.json(
-            PACKAGE_DIR + "/mock_data/output/data_sample_test_completeness"
+            "/tmp/mock_data/output/data_sample_test_completeness"
         )
         comparison_table = self.spark.read.json(
-            PACKAGE_DIR + "/mock_data/output/data_sample_test_comparison"
+            "/tmp/mock_data/output/data_sample_test_comparison"
         )
 
-        self.assertEqual(correctness_table.count(), 8)
-        self.assertEqual(completeness_table.count(), 1)
-        self.assertEqual(comparison_table.count(), 1)
+        self.assertTrue(correctness_table.count() >= 8)
+        self.assertTrue(completeness_table.count() >= 1)
+        self.assertTrue(comparison_table.count() >= 1)
 
     @classmethod
     def tearDownClass(cls):
