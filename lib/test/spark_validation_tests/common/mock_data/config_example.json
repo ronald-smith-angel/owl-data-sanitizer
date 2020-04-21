@@ -4,7 +4,9 @@
     "id_column": "GENERAL_ID",
     "output_correctness_table": "test.data_test_correctness",
     "output_completeness_table": "test.data_test_completeness",
-    "output_comparison_table": "test.data_test_comparison"
+    "output_comparison_table": "test.data_test_comparison",
+    "unique_column_group_values_per_table": ["GENERAL_ID", "ULTIMATE_PARENT_ID"],
+    "fuzzy_deduplication_distance": 0
   },
   "correctness_validations": [
     {

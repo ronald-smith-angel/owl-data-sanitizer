@@ -8,6 +8,8 @@ class Constants:
     SUM_REPORT_SUFFIX = "_SUM"
     OVER_ALL_COUNT_COL = "OVER_ALL_COUNT"
     IS_ERROR_COL = "IS_ERROR_"
+    UNIQUE_HASH = "UNIQUE_HASH"
+    COUNT_HASH = "COUNT_HASH"
     ROW_ERROR_SUFFIX = "_ROW"
     RULES_REPORT_SUFFIX = "_rules_report"
     COMPARISON_REPORT_SUFFIX = "_comparison_report"

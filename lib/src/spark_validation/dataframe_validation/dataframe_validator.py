@@ -20,6 +20,7 @@ class DataframeValidator(GeneralDFValidator):
         parent_children_validation_pairs,
         completeness_rules_dic,
         comparable_dfs_list,
+        unique_column_group_values_per_table=[],
     ):
         """Create handler with initial df for the specific date."""
         self.spark = spark
@@ -29,6 +30,7 @@ class DataframeValidator(GeneralDFValidator):
         self.parent_children_validation_pairs = parent_children_validation_pairs
         self.completeness_rules_dic = completeness_rules_dic
         self.comparable_dfs_list = comparable_dfs_list
+        self.unique_column_group_values_per_table = unique_column_group_values_per_table
 
     def process(self):
         """Run the the entire validation pipeline.
@@ -37,13 +39,23 @@ class DataframeValidator(GeneralDFValidator):
         2. Run all the rules completness.
         3. Return processed_df with all the computed values.
         """
-        processed_df = self.source_df.transform(
-            lambda df: self.join_cols_with_all_parents(
-                df, self.parent_children_validation_pairs
+        processed_df = (
+            self.source_df.transform(
+                lambda df: self.join_cols_with_all_parents(
+                    df, self.parent_children_validation_pairs
+                )
             )
-        ).transform(
-            lambda df: self.build_correctness_df(
-                df, self.correctness_rules_dict, self.parent_children_validation_pairs
+            .transform(
+                lambda df: self.add_unique_error(
+                    df, self.id_col_name, self.unique_column_group_values_per_table
+                )
+            )
+            .transform(
+                lambda df: self.build_correctness_df(
+                    df,
+                    self.correctness_rules_dict,
+                    self.parent_children_validation_pairs,
+                )
             )
         )
 

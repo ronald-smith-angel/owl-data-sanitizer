@@ -20,6 +20,8 @@ class Config(ABC):
         output_correctness_table,
         output_completeness_table,
         output_comparison_table,
+        unique_column_group_values_per_table=[],
+        fuzzy_deduplication_distance=0,
     ):
         self.source_df = source_df
         self.id_col_name = id_col_name
@@ -30,6 +32,8 @@ class Config(ABC):
         self.output_correctness_table = output_correctness_table
         self.output_completeness_table = output_completeness_table
         self.output_comparison_table = output_comparison_table
+        self.unique_column_group_values_per_table = unique_column_group_values_per_table
+        self.fuzzy_deduplication_distance = fuzzy_deduplication_distance
 
     @staticmethod
     def _create_config(config):
@@ -63,6 +67,19 @@ class Config(ABC):
                 output_comparison_table=config["source_table"][
                     "output_comparison_table"
                 ],
+                unique_column_group_values_per_table=config["source_table"][
+                    "unique_column_group_values_per_table"
+                ]
+                if (
+                    "unique_column_group_values_per_table"
+                    in config["source_table"].keys()
+                )
+                else [],
+                fuzzy_deduplication_distance=config["source_table"][
+                    "fuzzy_deduplication_distance"
+                ]
+                if ("fuzzy_deduplication_distance" in config["source_table"].keys())
+                else 0,
             )
         except KeyError as e:
             print(

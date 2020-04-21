@@ -1,6 +1,5 @@
 import argparse
 import logging
-import pandas as pd
 from pyspark.sql import SparkSession
 
 from spark_validation.common.config import Config
@@ -27,6 +26,7 @@ class CreateHiveValidationDF:
             parent_children_validation_pairs=config.parent_children_validation_pairs,
             completeness_rules_dic=config.completeness_rules_dic,
             comparable_dfs_list=comparable_dfs_list,
+            unique_column_group_values_per_table=config.unique_column_group_values_per_table,
         )
 
         processed_df = validator.process()

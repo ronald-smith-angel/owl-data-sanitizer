@@ -94,6 +94,28 @@ class GeneralDFValidator(ABC):
         )
 
     @staticmethod
+    def add_unique_error(df, id_col, unique_cols):
+        """ Adding deduplication validation."""
+        _unique_cols_list = list(map(lambda c: F.col(c + "_str"), unique_cols))
+        _w = Window.partitionBy(Constants.UNIQUE_HASH).orderBy(id_col)
+
+        return (
+            reduce(
+                lambda internal_df, col_name: internal_df.withColumn(
+                    col_name + "_str", F.lower(F.col(col_name).cast("string"))
+                ),
+                unique_cols,
+                df,
+            )
+            .withColumn(Constants.UNIQUE_HASH, F.concat(*_unique_cols_list))
+            .withColumn(Constants.COUNT_HASH, F.count(id_col).over(_w))
+            .withColumn(
+                Constants.IS_ERROR_COL + Constants.UNIQUE_HASH,
+                F.when(F.col(Constants.COUNT_HASH) > 1, 1).otherwise(0),
+            )
+        )
+
+    @staticmethod
     def build_correctness_report_df(processed_df, validated_cols):
         """Build a report df computing column errors.
 
@@ -166,7 +188,10 @@ class GeneralDFValidator(ABC):
             map(lambda c: Constants.IS_ERROR_COL + c, _list_cols_parent_validation,)
         )
         _list_general_rows_errors = list(
-            [Constants.IS_ERROR_COL + Constants.ROW_ERROR_SUFFIX]
+            [
+                Constants.IS_ERROR_COL + Constants.ROW_ERROR_SUFFIX,
+                Constants.IS_ERROR_COL + Constants.UNIQUE_HASH,
+            ]
         )
 
         final_select_cols = (

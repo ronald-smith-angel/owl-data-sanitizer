@@ -36,6 +36,7 @@ class CreateFSValidationDF:
             parent_children_validation_pairs=config.parent_children_validation_pairs,
             completeness_rules_dic=config.completeness_rules_dic,
             comparable_dfs_list=comparable_dfs_list,
+            unique_column_group_values_per_table=config.unique_column_group_values_per_table,
         )
 
         processed_df = validator.process()

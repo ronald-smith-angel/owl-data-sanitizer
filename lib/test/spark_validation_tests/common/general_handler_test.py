@@ -218,6 +218,7 @@ class GeneralHandlerTest(PySparkTest):
             "/tmp/mock_data/output/data_sample_test_comparison"
         )
 
+        correctness_table.show()
         self.assertTrue(correctness_table.count() >= 8)
         self.assertTrue(completeness_table.count() >= 1)
         self.assertTrue(comparison_table.count() >= 1)
