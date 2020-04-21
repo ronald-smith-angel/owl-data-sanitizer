@@ -1,0 +1,42 @@
+{
+  "source_table": {
+    "name": "mock_data/family_sample.csv",
+    "id_column": "ID",
+    "output_correctness_table": "/tmp/mock_data/output/family_sample_test_correctness",
+    "output_completeness_table": "/tmp/mock_data/output/family_sample_test_completeness",
+    "output_comparison_table": "/tmp/mock_data/output/family_sample_test_comparison",
+    "unique_column_group_values_per_table": ["ID", "NAME", "FAMILY_NAME", "PARENT"],
+    "fuzzy_deduplication_distance": 0
+  },
+  "correctness_validations": [
+    {
+      "column": "ID",
+      "rule": "ID is not null and ID != '' and ID != 'null'"
+    },
+    {
+      "column": "NAME",
+      "rule": "NAME is not null and NAME != '' and NAME != 'null' and NAME like '%ho%'"
+    },
+    {
+      "column": "FAMILY_NAME",
+      "rule": "NAME is not null and FAMILY_NAME in ('Cha', 'Pha')"
+    },
+    {
+      "column": "ADDRESS",
+      "rule": "ADDRESS is not null and ADDRESS != '' and ADDRESS != 'null' and CHAR_LENGTH(ADDRESS) > 4"
+    }
+  ],
+  "completeness_validations": [
+    {
+      "column": "OVER_ALL_COUNT",
+      "rule": "OVER_ALL_COUNT <= 5"
+    }
+  ],
+  "parent_children_constraints": [
+    {
+      "column": "ID",
+      "parent": "PARENT"
+    }
+  ],
+  "compare_related_tables_list": ["mock_data/family_sample_diff.csv"]
+}

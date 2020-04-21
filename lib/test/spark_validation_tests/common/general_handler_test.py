@@ -1,5 +1,6 @@
 """Module with general function tests for the GeneralDFHandler."""
 import os
+import shutil
 import sys
 import unittest
 
@@ -218,8 +219,47 @@ class GeneralHandlerTest(PySparkTest):
             "/tmp/mock_data/output/data_sample_test_comparison"
         )
 
-        correctness_table.show()
         self.assertTrue(correctness_table.count() >= 8)
+        self.assertTrue(completeness_table.count() >= 1)
+        self.assertTrue(comparison_table.count() >= 1)
+
+    def test_sample_case_integration_fs_validator(self):
+        """Integration test for rule set defined in mock config file."""
+        with open(PACKAGE_DIR + "/mock_data/config_family_fs.json") as f:
+            config = Config.parse(f)
+
+        config.source_df = PACKAGE_DIR + config.source_df
+        config.output_correctness_table = PACKAGE_DIR + config.output_completeness_table
+        config.output_completeness_table = (
+            PACKAGE_DIR + config.output_completeness_table
+        )
+        config.output_comparison_table = PACKAGE_DIR + config.output_comparison_table
+        config.comparable_dfs_list = list(
+            map(lambda x: PACKAGE_DIR + x, config.comparable_dfs_list)
+        )
+
+        self.spark.sparkContext.addFile(
+            PACKAGE_DIR + "/mock_data/config_family_fs.json"
+        )
+        sys.argv = [
+            "example.py",
+            "-c",
+            PACKAGE_DIR + "/mock_data/config_family_fs.json",
+        ]
+
+        file_system_validator.init()
+
+        correctness_table = self.spark.read.json(
+            "/tmp/mock_data/output/family_sample_test_correctness"
+        )
+        completeness_table = self.spark.read.json(
+            "/tmp/mock_data/output/family_sample_test_completeness"
+        )
+        comparison_table = self.spark.read.json(
+            "/tmp/mock_data/output/family_sample_test_comparison"
+        )
+
+        self.assertTrue(correctness_table.count() >= 6)
         self.assertTrue(completeness_table.count() >= 1)
         self.assertTrue(comparison_table.count() >= 1)
 
@@ -239,6 +279,8 @@ class GeneralHandlerTest(PySparkTest):
                 GeneralHandlerTest.TEST_DATABASE_NAME
             )
         ).collect()
+        shutil.rmtree(self.derby_home)
+        shutil.rmtree(self.spark_warehouse)
 
 
 if __name__ == "__main__":

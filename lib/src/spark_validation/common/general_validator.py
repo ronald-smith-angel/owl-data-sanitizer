@@ -97,12 +97,18 @@ class GeneralDFValidator(ABC):
     def add_unique_error(df, id_col, unique_cols):
         """ Adding deduplication validation."""
         _unique_cols_list = list(map(lambda c: F.col(c + "_str"), unique_cols))
-        _w = Window.partitionBy(Constants.UNIQUE_HASH).orderBy(id_col)
+        _w = Window.partitionBy(Constants.UNIQUE_HASH).orderBy(F.col(id_col).asc())
 
         return (
             reduce(
                 lambda internal_df, col_name: internal_df.withColumn(
-                    col_name + "_str", F.lower(F.col(col_name).cast("string"))
+                    col_name + "_str",
+                    (
+                        F.when(
+                            F.col(col_name).isNotNull(),
+                            F.lower(F.col(col_name).cast("string")),
+                        ).otherwise("")
+                    ),
                 ),
                 unique_cols,
                 df,
@@ -113,6 +119,7 @@ class GeneralDFValidator(ABC):
                 Constants.IS_ERROR_COL + Constants.UNIQUE_HASH,
                 F.when(F.col(Constants.COUNT_HASH) > 1, 1).otherwise(0),
             )
+            .orderBy(F.col(id_col).asc())
         )
 
     @staticmethod
