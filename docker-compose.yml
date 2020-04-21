@@ -8,4 +8,4 @@ services:
         ports:
             - "8000:8000"
         volumes:
-            - ./logs:/logs/
+            - $PWD/logs:/logs/
