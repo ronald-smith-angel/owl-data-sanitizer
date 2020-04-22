@@ -1,3 +1,4 @@
+import json
 import sys
 
 from flask import Flask, jsonify, request, make_response
@@ -15,7 +16,9 @@ def index():
 @application.route("/validate", methods=["POST"])
 def validate():
     json_input = request.get_json(force=True)
-    sys.argv = ["example.py", "-c", json_input["config_file"]]
+    with open('config.json', 'w') as fp:
+        json.dump(json_input, fp)
+    sys.argv = ["example.py", "-c", 'config.json']
 
     file_system_validator.init()
     response = {"validation": "yes"}
