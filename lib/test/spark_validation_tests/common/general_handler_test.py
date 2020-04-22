@@ -279,8 +279,6 @@ class GeneralHandlerTest(PySparkTest):
                 GeneralHandlerTest.TEST_DATABASE_NAME
             )
         ).collect()
-        shutil.rmtree(self.derby_home)
-        shutil.rmtree(self.spark_warehouse)
 
 
 if __name__ == "__main__":
