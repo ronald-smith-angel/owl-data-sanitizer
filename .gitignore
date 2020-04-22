@@ -24,7 +24,7 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
+lib/src/spark_validation/static/
 develop-eggs/
 dist/
 downloads/
