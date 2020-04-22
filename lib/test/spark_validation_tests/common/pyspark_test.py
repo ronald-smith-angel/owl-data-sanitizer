@@ -37,6 +37,11 @@ class PySparkTest(unittest.TestCase):
     def setUpClass(cls):
         """Init needed directories and sessions."""
         cls.suppress_py4j_logging()
+
+        if os.path.exists(cls.derby_home):
+            shutil.rmtree(cls.derby_home)
+        if os.path.exists(cls.spark_warehouse):
+            shutil.rmtree(cls.spark_warehouse)
         os.mkdir(cls.derby_home)
         os.mkdir(cls.spark_warehouse)
         cls.spark = cls.create_session()
