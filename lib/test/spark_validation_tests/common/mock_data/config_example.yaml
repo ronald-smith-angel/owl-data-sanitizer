@@ -1,0 +1,40 @@
+#metadata for the source table.
+source_table:
+  name: test.data_test #include schema.
+  id_column: GENERAL_ID
+  output_correctness_table: test.data_test_correctness
+  output_completeness_table: test.data_test_completeness
+  output_comparison_table: test.data_test_comparison
+  unique_column_group_values_per_table: #deduplication using 1 or more columns.
+    - GENERAL_ID
+    - ULTIMATE_PARENT_ID
+  fuzzy_deduplication_distance: 0 #apply fuzzy matching distance N to deduplication, 0 for disable.
+#correctness rules per column, use a SQL query in a negative way. Example: where col is not null and is != 'a'.
+correctness_validations:
+  - column: CODE
+    rule: CODE is not null and CODE != '' and CODE != 'null'
+  - column: NAME
+    rule: NAME is not null and NAME != '' and NAME != 'null'
+  - column: GENERAL_ID
+    rule: >-
+      GENERAL_ID is not null and GENERAL_ID != '' and GENERAL_ID != 'null' and
+      CHAR_LENGTH(GENERAL_ID) < 4
+#validations for parent children constraints. Example: parent should be a valid entity within the table.
+parent_children_constraints:
+  - column: GENERAL_ID
+    parent: ULTIMATE_PARENT_ID
+  - column: GENERAL_ID
+    parent: PARENT_ID
+#completeness rules. Use either an overall completeness count or a count compared with previous partitions.
+#for simple overall count keep the column name OVER_ALL_COUNT.
+completeness_validations:
+  overall:
+    column: OVER_ALL_COUNT
+    rule: OVER_ALL_COUNT <= 7
+  partitioned:
+    previous_partition: test.data_test_diff
+    max_grow_percentage: 10 #use negative for reduction.
+#checksum compare data with different tables. Example: compare against a goal set or the test vs production env.
+compare_related_tables_list:
+  - test.diff_df
+  - test.diff_df_2

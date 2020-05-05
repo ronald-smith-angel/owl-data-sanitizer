@@ -1,6 +1,7 @@
 """Module representing config data."""
 import json
 import sys
+import yaml
 from abc import ABC
 
 from pyspark.sql.utils import AnalysisException
@@ -47,9 +48,9 @@ class Config(ABC):
                 for rule in config["parent_children_constraints"]
             ]
 
+            completeness_overall_rule = config["completeness_validations"]["overall"]
             completeness_validations = {
-                rule["column"]: rule["rule"]
-                for rule in config["completeness_validations"]
+                completeness_overall_rule["column"]: completeness_overall_rule["rule"]
             }
             return Config(
                 source_df=config["source_table"]["name"],
@@ -92,11 +93,10 @@ class Config(ABC):
     def parse(file):
         """parse a json file to a config object."""
         try:
-            config = json.load(file)
+            config = json.load(file) if 'json' in file.name else yaml.load(file)
         except OSError:
             print("Could not open/read file:", file)
             sys.exit()
-
         return Config._create_config(config)
 
     @staticmethod

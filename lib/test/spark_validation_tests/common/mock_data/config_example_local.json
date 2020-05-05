@@ -22,12 +22,12 @@
       "rule": "GENERAL_ID is not null and GENERAL_ID != '' and GENERAL_ID != 'null' and CHAR_LENGTH(GENERAL_ID) < 4"
     }
   ],
-  "completeness_validations": [
-    {
+  "completeness_validations": {
+    "overall": {
       "column": "OVER_ALL_COUNT",
       "rule": "OVER_ALL_COUNT <= 7"
     }
-  ],
+  },
   "parent_children_constraints": [
     {
       "column": "GENERAL_ID",

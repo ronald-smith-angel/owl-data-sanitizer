@@ -5,7 +5,10 @@
     "output_correctness_table": "test.data_test_correctness",
     "output_completeness_table": "test.data_test_completeness",
     "output_comparison_table": "test.data_test_comparison",
-    "unique_column_group_values_per_table": ["GENERAL_ID", "ULTIMATE_PARENT_ID"],
+    "unique_column_group_values_per_table": [
+      "GENERAL_ID",
+      "ULTIMATE_PARENT_ID"
+    ],
     "fuzzy_deduplication_distance": 0
   },
   "correctness_validations": [
@@ -22,12 +25,12 @@
       "rule": "GENERAL_ID is not null and GENERAL_ID != '' and GENERAL_ID != 'null' and CHAR_LENGTH(GENERAL_ID) < 4"
     }
   ],
-  "completeness_validations": [
-    {
+  "completeness_validations": {
+    "overall": {
       "column": "OVER_ALL_COUNT",
       "rule": "OVER_ALL_COUNT <= 7"
     }
-  ],
+  },
   "parent_children_constraints": [
     {
       "column": "GENERAL_ID",
@@ -38,5 +41,8 @@
       "parent": "PARENT_ID"
     }
   ],
-  "compare_related_tables_list": ["test.diff_df", "test.diff_df_2"]
+  "compare_related_tables_list": [
+    "test.diff_df",
+    "test.diff_df_2"
+  ]
 }

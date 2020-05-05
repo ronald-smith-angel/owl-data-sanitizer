@@ -1,6 +1,5 @@
 """Module with general function tests for the GeneralDFHandler."""
 import os
-import shutil
 import sys
 import unittest
 
