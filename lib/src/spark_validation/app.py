@@ -10,10 +10,7 @@ application = Flask(__name__, static_url_path="")
 
 @application.route("/")
 def index():
-    message = "Hello, World"
     return application.send_static_file('index.html')
-    # return render_template('./static/index.html', message=message)
-
 
 @application.route("/api/validate", methods=["POST"])
 def validate():

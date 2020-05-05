@@ -100,7 +100,7 @@ class GeneralHandlerTest(PySparkTest):
 
     def test_integration_hive_validator(self):
         """Integration test for rule set defined in mock config file."""
-        with open(PACKAGE_DIR + "/mock_data/config_example.json") as f:
+        with open(PACKAGE_DIR + "/mock_data/config_example.yaml") as f:
             config = Config.parse(f)
 
         self.source_df.write.saveAsTable(config.source_df)
