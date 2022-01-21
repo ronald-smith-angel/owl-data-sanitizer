@@ -13,7 +13,7 @@ SETUP_REQUIREMENTS = [
     "numpy==1.18.3",
     "pandas==1.0.1",
     "pivottablejs==0.9.0",
-    "ipython==7.13.0",
+    "ipython==7.16.3",
 ]
 
 from os import path
