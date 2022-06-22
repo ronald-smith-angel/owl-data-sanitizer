@@ -10,7 +10,7 @@ SETUP_REQUIREMENTS = [
     "Flask==1.1.2",
     "requests==2.23.0",
     "dataclasses==0.6",
-    "numpy==1.18.3",
+    "numpy==1.22.0",
     "pandas==1.0.1",
     "pivottablejs==0.9.0",
     "ipython==7.13.0",
