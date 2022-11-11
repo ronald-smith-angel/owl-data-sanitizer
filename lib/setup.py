@@ -6,7 +6,7 @@ from setuptools import setup, find_packages
 
 SETUP_REQUIREMENTS = [
     "dataclasses==0.6",
-    "pyspark==2.4.5",
+    "pyspark==3.2.2",
     "Flask==1.1.2",
     "requests==2.23.0",
     "dataclasses==0.6",
